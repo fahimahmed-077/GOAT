@@ -77,7 +77,7 @@ for (const text of title) {
   const textColor = gradient("#FA8BFF", "#2BD2FF", "#2BFF88")(text);
   centerText(textColor, text.length);
 }
-let subTitle = "GoatBot V2@" + currentVersion + "- Powered by MOHAMMAD AKASH";
+let subTitle = "GoatBot V2@" + currentVersion + "- Powered by Mr_Farhan";
 const subTitleArray = [];
 if (subTitle.length > maxWidth) {
   while (subTitle.length > maxWidth) {
@@ -557,7 +557,7 @@ async function startBot(_0x3cad9e) {
   }
 
   log.info("LOGIN FACEBOOK", getText("login", "currentlyLogged"));
-  log.warn("FCA", "Modified By Mohammad Akash 😈");
+  log.warn("FCA", "Modified By Mr_Farhan 😈");
   try {
     var _0x41cca2 = path.join(process.cwd(), "account.txt");
     var _0x11ae53 = fs.readFileSync(_0x41cca2, 'utf8');
