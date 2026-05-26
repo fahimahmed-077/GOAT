@@ -5,7 +5,7 @@ module.exports = {
     author: "MR_FARHAN",
     role: 0,
     category: "utility",
-    description: "Clean font system"
+    description: "Clean font system with reply support"
   },
 
   onStart: async function ({ api, event, args }) {
@@ -24,7 +24,7 @@ module.exports = {
 
     const type = (args[0] || "").toLowerCase();
 
-    // 🔥 REPLY SUPPORT ADDED HERE
+    // 🔥 reply + normal support
     let text = args.slice(1).join(" ");
 
     if (!text && event.messageReply && event.messageReply.body) {
@@ -32,7 +32,6 @@ module.exports = {
     }
 
     const normal = "abcdefghijklmnopqrstuvwxyz";
-    const ORIGINAL_NAME = "Farhan";
 
     const fonts = {
       1: ["𝗮","𝗯","𝗰","𝗱","𝗲","𝗳","𝗴","𝗵","𝗶","𝗷","𝗸","𝗹","𝗺","𝗻","𝗼","𝗽","𝗾","𝗿","𝘀","𝘁","𝘂","𝘃","𝘄","𝘅","𝘆","𝘇"],
@@ -58,27 +57,92 @@ module.exports = {
       21:["𝐚","𝐛","𝐜","𝐝","𝐞","𝐟","𝐠","𝐡","𝐢","𝐣","𝐤","𝐥","𝐦","𝐧","𝐨","𝐩","𝐪","𝐫","𝐬","𝐭","𝐮","𝐯","𝐰","𝐱","𝐲","𝐳"]
     };
 
-    const preview = (arr) => {
-      if (ORIGINAL_NAME !== "Farhan") return "⚠️ Name Lock Enabled";
-
-      return ORIGINAL_NAME.split("").map(c => {
+    const preview = (arr, sample = "Farhan") => {
+      return sample.split("").map(c => {
         const i = normal.indexOf(c.toLowerCase());
         return i !== -1 ? arr[i] : c;
       }).join("");
     };
 
     if (type === "list") {
-      return api.sendMessage(`Font list unchanged...`, event.threadID);
+      return api.sendMessage(
+`╔━━❖🌸 𝗙𝗢𝗡𝗧 𝗟𝗜𝗦𝗧 🌸❖━━╗    
+
+┃ ✨ ➀ ➤ 𝗕𝗼𝗹𝗱    
+┃ ╰➤ ${preview(fonts[1])}    
+
+┃ ✨ ➁ ➤ 𝗠𝗼𝗻𝗼    
+┃ ╰➤ ${preview(fonts[2])}    
+
+┃ ✨ ➂ ➤ 𝗦𝗰𝗿𝗶𝗽𝘁    
+┃ ╰➤ ${preview(fonts[3])}    
+
+┃ ✨ ➃ ➤ 𝗖𝗶𝗿𝗰𝗹𝗲𝗱    
+┃ ╰➤ ${preview(fonts[4])}    
+
+┃ ✨ ➄ ➤ 𝗦𝗺𝗮𝗹𝗹 𝗖𝗮𝗽𝘀    
+┃ ╰➤ ${preview(fonts[5])}    
+
+┃ ✨ ➅ ➤ 𝗜𝘁𝗮𝗹𝗶𝗰    
+┃ ╰➤ ${preview(fonts[6])}    
+
+┃ ✨ ➆ ➤ 𝗕𝗼𝗹𝗱 𝗨𝗽𝗽𝗲𝗿    
+┃ ╰➤ ${preview(fonts[7])}    
+
+┃ ✨ ➇ ➤ 𝗖𝘂𝗿𝗹𝘆    
+┃ ╰➤ ${preview(fonts[8])}    
+
+┃ ✨ ➈ ➤ 𝗕𝘂𝗯𝗯𝗹𝗲    
+┃ ╰➤ ${preview(fonts[9])}    
+
+┃ ✨ ➉ ➤ 𝗕𝗹𝗼𝗰𝗸    
+┃ ╰➤ ${preview(fonts[10])}    
+
+┃ ✨ ⑪ ➤ 𝗖𝗵𝗶𝗻𝗲𝘀𝗲    
+┃ ╰➤ ${preview(fonts[11])}    
+
+┃ ✨ ⑫ ➤ 𝗙𝗿𝗮𝗸𝘁𝘂𝗿    
+┃ ╰➤ ${preview(fonts[12])}    
+
+┃ ✨ ⑬ ➤ 𝗚𝗿𝗲𝗲𝗸 𝗠𝗶𝘅    
+┃ ╰➤ ${preview(fonts[13])}    
+
+┃ ✨ ⑭ ➤ 𝗙𝘂𝗹𝗹 𝗪𝗶𝗱𝘁𝗵    
+┃ ╰➤ ${preview(fonts[14])}    
+
+┃ ✨ ⑮ ➤ 𝗦𝘂𝗽𝗲𝗿    
+┃ ╰➤ ${preview(fonts[15])}    
+
+┃ ✨ ⑯ ➤ 𝗖𝗶𝗿𝗰𝗹𝗲𝗱 𝟮    
+┃ ╰➤ ${preview(fonts[16])}    
+
+┃ ✨ ⑰ ➤ 𝗦𝗺𝗼𝗼𝘁𝗵    
+┃ ╰➤ ${preview(fonts[17])}    
+
+┃ ✨ ⑱ ➤ 𝗧𝗲𝗰𝗵    
+┃ ╰➤ ${preview(fonts[18])}    
+
+┃ ✨ ⑲ ➤ 𝗗𝗼𝘂𝗯𝗹𝗲 𝗕𝗼𝗹𝗱    
+┃ ╰➤ ${preview(fonts[19])}    
+
+┃ ✨ ⑳ ➤ 𝗢𝗹𝗱 𝗙𝗿𝗮𝗸    
+┃ ╰➤ ${preview(fonts[20])}    
+
+┃ ✨ ㉑ ➤ 𝗗𝗼𝘂𝗯𝗹𝗲 𝗕𝗼𝗹𝗱 𝗦𝗲𝗿𝗶𝗳    
+┃ ╰➤ ${preview(fonts[21])}    
+
+╠━━❖ 🌸 𝗨𝗦𝗘 🌸 ❖━━╣    
+┃ ➤ font list    
+┃ ➤ font 1 Farhan    
+┃ ➤ reply + font 1    
+╚━━━━━━━━━━━━━━━━━━╝`,
+        event.threadID
+      );
     }
 
-    if (!type || !text) {
+    if (!type) {
       return api.sendMessage(
-`╔━━❖𝗙𝗢𝗡𝗧 𝗦𝗬𝗦𝗧𝗘𝗠❖━━╗
-┃ ✨ Usage:
-┃ ➤ font list
-┃ ➤ font 1 Farhan
-┃ ➤ Reply + font 1
-╚━━━━━━━━━━━━━━━━━╝`,
+        "Usage: font list / font 1 text / reply + font 1",
         event.threadID
       );
     }
@@ -86,13 +150,7 @@ module.exports = {
     const selected = fonts[type];
 
     if (!selected) {
-      return api.sendMessage(
-`╔━━❖ ⚠️ 𝗜𝗡𝗩𝗔𝗟𝗜𝗗 ⚠️ ❖━━╗
-┃ ✘ Invalid font type!
-┃ ➤ font list
-╚━━━━━━━━━━━━━━━━━━╝`,
-        event.threadID
-      );
+      return api.sendMessage("Invalid font type! Use font list", event.threadID);
     }
 
     const result = text.split("").map(c => {
