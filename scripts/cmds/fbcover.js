@@ -5,7 +5,7 @@ module.exports = {
     name: "fbcover",
     aliases: [],
     version: "6.9",
-    author: "FARHAN-KHAN",
+    author: "MR_FARHAN",
     countDown: 5,
     role: 0,
     shortDescription: "Facebook cover generate",
