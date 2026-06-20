@@ -18,7 +18,7 @@ module.exports = {
     const targetThread = args[0] || event.threadID;
 
     try {
-      await api.sendMessage("👋 আলবিদা সবাই! আমি এখন গ্রুপ থেকে বের হচ্ছি...", targetThread);
+      await api.sendMessage("👋 আমি গ্রুপ থেকে বের হচ্ছি… কারণ আমি মানুষ, স্প্যাম ফিল্টার না 😭😂...", targetThread);
       await api.removeUserFromGroup(botID, targetThread);
     } catch (error) {
       console.error(error);
