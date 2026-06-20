@@ -27,7 +27,7 @@ module.exports = {
 		} catch (e) {}
 
 		// ২. পার্সোনালাইজড লোডিং মেসেজ
-		const loadingMsg = await message.reply("⚡ 𝗙𝗔𝗥𝗛𝗔𝗡 𝗕𝗢𝗦𝗦 𝗔𝗥 𝗩𝗜𝗗𝗘𝗢 𝗟𝗢𝗔𝗗𝗜𝗡𝗚 𝗛𝗢𝗦𝗦𝗘... ⚡");
+		const loadingMsg = await message.reply("⚡ 𝗙𝗔𝗛𝗜𝗠 𝗕𝗢𝗦𝗦 𝗔𝗥 𝗩𝗜𝗗𝗘𝗢 𝗟𝗢𝗔𝗗𝗜𝗡𝗚 𝗛𝗢𝗦𝗦𝗘... ⚡");
 
 		const data = [
 			{
@@ -77,7 +77,7 @@ module.exports = {
 			const randomItem = data[Math.floor(Math.random() * data.length)];
 
 			// ৪. ইনবক্স লিংক এবং বস মেসেজ স্টাইল
-			const footer = `\n✢━━━━━━━━━━━━━━━✢\n--❖(✷‿𝐒𝐈𝐙𝐔𝐊𝐀-𝐁𝐎𝐓‿✷)❖--\n✢━━━━━━━━━━━━━━━✢\n[ফা্ঁর্ঁহা্ঁন্ঁ ব্ঁসে্ঁর্ঁ ভ্ঁয়ে্ঁস্ঁ ভি্ঁডি্ঁও্ঁ]\n✢━━━━━━━━━━━━━━━✢\n(✷‿𝐎𝐖𝐍𝐄𝐑:-𝐑𝐉-𝐅𝐀𝐑𝐇𝐀𝐍‿✷)`;
+			const footer = `\n✢━━━━━━━━━━━━━━━✢\n--❖(✷‿𝐒𝐈𝐙𝐔𝐊𝐀-𝐁𝐎𝐓‿✷)❖--\n✢━━━━━━━━━━━━━━━✢\n[ফা্ঁর্ঁহা্ঁন্ঁ ব্ঁসে্ঁর্ঁ ভ্ঁয়ে্ঁস্ঁ ভি্ঁডি্ঁও্ঁ]\n✢━━━━━━━━━━━━━━━✢\n(✷‿𝐎𝐖𝐍𝐄𝐑:-𝗙𝗔𝗛𝗜𝗠‿✷)`;
 
 			// ৫. ভিডিও স্ট্রিম নেওয়া
 			const videoStream = await global.utils.getStreamFromURL(randomItem.link);
