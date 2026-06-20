@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "i",
     version: "1.2",
-    author: "FARHAN-KHAN",
+    author: "JARiF@Cock",
     countDown: 5,
     role: 0,
     longDescription: {
