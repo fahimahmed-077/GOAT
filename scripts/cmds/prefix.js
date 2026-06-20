@@ -4,8 +4,8 @@ const moment = require("moment-timezone");
 const getStreamFromURL = global.utils.getStreamFromURL;
 
 const gifList = [
-"https://files.catbox.moe/hrzwco.mp4",
-"https://files.catbox.moe/hrzwco.mp4"
+"https://files.catbox.moe/zj5dp9.mp4",
+"https://files.catbox.moe/uwks71.mp4"
 ];
 
 const getRandomGif = () =>
@@ -15,7 +15,7 @@ module.exports = {
 	config: {
 		name: "prefix",
 		version: "2.2",
-		author: "FARHAN-KHAN",
+		author: "Farhan-Khan",
 		countDown: 5,
 		role: 0,
 		description: "Change & show bot prefix ",
@@ -24,7 +24,7 @@ module.exports = {
 
 	langs: {
 		en: {
-			usage: "❌ 𝐔𝐬𝐚𝐠𝐞: 𝐩𝐫𝐞𝐟𝐢𝐱 <𝐧𝐞𝐰𝐏𝐫𝐞𝐟𝐢𝐱> | 𝐩𝐫𝐞𝐟𝐢𝐱 𝐫𝐞𝐬𝐞𝐭 | 𝐩𝐫𝐞𝐟𝐢𝐱 <𝐧𝐞𝐰𝐏𝐫𝐞𝐟𝐢𝐱> -g",
+			usage: "❌ 𝐔𝐬𝐚𝐠𝐞: 𝐩𝐫𝐞𝐟𝐢𝐱 <𝐧𝐞𝐰𝐏𝐫𝐞𝐟𝐢𝐱> | 𝐩𝐫𝐞𝐟𝐢𝐱 𝐫𝐞𝐬𝐞𝐭 | 𝐩𝐫𝐞𝐟𝐢𝐱 <𝐧𝐞𝐰𝐏𝐫𝐞𝐟𝐢𝐱> %1",
 			reset: "✅ 𝐏𝐫𝐞𝐟𝐢𝐱 𝐫𝐞𝐬𝐞𝐭 𝐬𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥!\n🔰 𝐒𝐲𝐬𝐭𝐞𝐦 𝐩𝐫𝐞𝐟𝐢𝐱: %1",
 			onlyAdmin: "⛔ 𝐎𝐧𝐥𝐲 𝐛𝐨𝐭 𝐚𝐝𝐦𝐢𝐧 𝐜𝐚𝐧 𝐜𝐡𝐚𝐧𝐠𝐞 𝐠𝐥𝐨𝐛𝐚𝐥 𝐩𝐫𝐞𝐟𝐢𝐱.",
 			confirmGlobal: "__________________________________🗨️=𝐆𝐥𝐨𝐛𝐚𝐥 𝗽𝗿𝗲𝗳𝗶𝘅 𝗰𝗵𝗮𝗻𝗴𝗲 𝗿𝗲𝗾𝘂𝗲𝘀𝘁𝗲𝗱.\n👉=𝗥𝗲𝗮𝗰𝘁 𝘄𝗶𝘁𝗵 𝗲𝗺𝗼𝗷𝗶 𝘁𝗼 𝗰𝗼𝗻𝗳𝗶𝗿𝗺.✅.                                                                                                                                                                                   __________________________________",
@@ -112,18 +112,26 @@ module.exports = {
 		const time = moment().tz("Asia/Dhaka").format("hh:mm A");
 		const date = moment().tz("Asia/Dhaka").format("DD MMM YYYY");
 
-		const owner = global.GoatBot.config.adminName || "𝐅𝐀𝐑𝐇𝐀𝐍";
+		const owner = global.GoatBot.config.adminName || "𝐅𝐀𝗛𝗜𝗠";
 
 		return message.reply({
 			body:
 `╭━━━〔《𓆩𝐏𝐑𝐄𝐅𝐈𝐗𓆪》〕━━━╮
-┃ 🏷️ 𓆩𝐆𝐑𝐎𝐔𝐏𓆪: 《𓆩${groupName}𓆪》
-┃ 🔰 𓆩𝐒𝐘𝐒𝐓𝐄𝐌𓆪: 《${systemPrefix}》
-┃ 💬 𓆩𝐆𝐑𝐎𝐔𝐏𓆪: 《${groupPrefix}》
-┃ ⏰ 𓆩𝐓𝐈𝐌𝐄𓆪: 《𓆩${time}𓆪》
-┃ 📅 𓆩𝐃𝐀𝐓𝐄𓆪:𓆩${date}𓆪
-┃ 👑 𓆩𝐎𝐖𝐍𝐄𝐑𓆪: 《𓆩${owner}𓆪》
-┃ ⚡ 𓆩𝐒𝐓𝐀𝐓𝐔𝐒𓆪: 《𓆩𝐎𝐍𝐋𝐈𝐍𝐄𓆪》
+┃🏷️『𝐆𝐑𝐎𝐔𝐏』:↓
+✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
+《 ${groupName} 》
+✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
+┃🔰『𝐒𝐘𝐒𝐓𝐄𝐌』: 《 ${systemPrefix} 》
+┃
+┃💬『𝐆𝐑𝐎𝐔𝐏』: 《 ${groupPrefix} 》
+┃
+┃⏰『𝐓𝐈𝐌𝐄』: 《 ${time} 》
+┃
+┃📅『𝐃𝐀𝐓𝐄』:《 ${date} 》
+┃
+┃👑『𝐎𝐖𝐍𝐄𝐑』: 《${owner}》
+┃
+┃⚡『𝐒𝐓𝐀𝐓𝐔𝐒』: 《𝐎𝐍𝐋𝐈𝐍𝐄》
 ╰━━━〔《𓆩𝐒𝐈𝐙𝐔𝐊𝐀𓆪》〕━━━╯`,
 			attachment: await getStreamFromURL(gif)
 		});
