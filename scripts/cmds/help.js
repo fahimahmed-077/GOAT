@@ -1,31 +1,12 @@
 const axios = require("axios");
 const { getPrefix, getStreamFromURL } = global.utils;
 const { commands } = global.GoatBot;
-const fs = require("fs");
 
 let xfont = null;
 let yfont = null;
 let categoryEmoji = null;
 
-const HELP_GIF = "https://files.catbox.moe/6touzq.mp4";
-
-// 🔒 AUTHOR LOCK SYSTEM
-const AUTHOR_NAME = "FARHAN-KHAN";
-const FILE_PATH = __filename;
-
-function checkAuthorLock() {
-  try {
-    const fileData = fs.readFileSync(FILE_PATH, "utf-8");
-    if (!fileData.includes(`author: "${AUTHOR_NAME}"`)) {
-      console.log("❌ AUTHOR CHANGED! FILE LOCKED.");
-      return false;
-    }
-    return true;
-  } catch (e) {
-    console.log("❌ ERROR CHECKING AUTHOR LOCK");
-    return false;
-  }
-}
+const HELP_GIF = "https://files.catbox.moe/uh4lxd.mp4";
 
 async function loadResources() {
   try {
@@ -76,7 +57,7 @@ module.exports = {
     name: "help",
     aliases: ["menu"],
     version: "2.0",
-    author: "FARHAN-KHAN", // 🔒 LOCKED
+    author: "MR_FARHAN",
     role: 0,
     category: "info",
     shortDescription: "Show all commands",
@@ -84,16 +65,11 @@ module.exports = {
   },
 
   onStart: async function ({ message, args, event, role }) {
-
-    // 🔒 CHECK AUTHOR BEFORE RUN
-    if (!checkAuthorLock()) {
-      return message.reply("❌ FILE LOCKED! DON'T CHANGE AUTHOR.");
-    }
-
     if (!xfont || !yfont || !categoryEmoji) await loadResources();
     const prefix = getPrefix(event.threadID);
     const input = args.join(" ").trim();
 
+    // Collect categories
     const categories = {};
     for (const [name, cmd] of commands) {
       if (!cmd?.config || cmd.config.role > role) continue;
@@ -102,6 +78,7 @@ module.exports = {
       categories[cat].push(name);
     }
 
+    // If input is "-c <category>"
     if (args[0] === "-c" && args[1]) {
       const cat = args[1].toUpperCase();
       if (!categories[cat])
@@ -112,27 +89,24 @@ module.exports = {
         msg += `│⚡ ${fontConvert(c)}\n`;
       msg += `╰────────────✰\n`;
       msg += `> TOTAL: ${categories[cat].length}\n> PREFIX: ${prefix}`;
-
       return message.reply({
         body: msg,
         attachment: await getStreamFromURL(HELP_GIF)
       });
     }
 
+    // Main menu
     if (!input) {
-      let msg = `╭───────❁\n│✨ 𝗙 𝗔 𝗥 𝗛 𝗔 𝗡 𝗛𝗘𝗟𝗣 𝗟𝗜𝗦𝗧 ✨\n╰────────────❁\n`;
-
+      let msg = `╭───────❁\n│✨ 𝗙 𝗔 𝗛 𝗜 𝗠 𝗛𝗘𝗟𝗣 𝗟𝗜𝗦𝗧 ✨\n╰────────────❁\n`;
       for (const cat of Object.keys(categories).sort()) {
         msg += `╭─────✰『 ${getCategoryEmoji(cat)} ${fontConvert(cat, "category")} 』\n`;
         for (const c of categories[cat].sort())
           msg += `│⚡ ${fontConvert(c)}\n`;
         msg += `╰────────────✰\n`;
       }
-
       const total = Object.values(categories).reduce((a, b) => a + b.length, 0);
-
-      msg += `╭─────✰[🌟 𝐄𝐍𝐉𝐎𝐘 🌟]\n│> TOTAL COMMANDS: [${total}]\n│\n│> TYPE: [ ${prefix}HELP <COMMAND> ]\n│\n│> FB.LINK: [https://www.facebook.com/MR.FARHAN.420]\n╰────────────✰\n`;
-      msg += `╭─────✰\n│ 💖 𝗦𝗜𝗭𝗨𝗞𝗔-𝗕𝗢𝗧 💖\n╰────────────✰`;
+      msg += `╭─────✰[🌟 𝐄𝐍𝐉𝐎𝐘 🌟]\n│> 𝗧𝗢𝗧𝗔𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦: [${total}]\n│\n│> 𝗧𝗬𝗣𝗘: [ ${prefix}𝗛𝗘𝗟𝗣 <𝗖𝗢𝗠𝗠𝗔𝗡𝗗> ]\n│\n│> 𝗙𝗕.𝗟𝗜𝗡𝗞: [𝗛𝗧𝗧𝗣𝗦://𝗠.𝗠𝗘/𝗙𝗔𝗛𝗜𝗠.𝗔𝗛𝗠𝗘𝗗.𝗥𝗔𝗝.207]\n╰────────────✰\n`;
+      msg += `╭─────✰\n│ 💖 𝗙𝗔𝗛𝗜𝗠-𝗕𝗢𝗧 💖\n╰────────────✰`;
 
       return message.reply({
         body: msg,
@@ -140,12 +114,11 @@ module.exports = {
       });
     }
 
+    // Command info
     const cmd = findCommand(input);
     if (!cmd) return message.reply(`❌ Command "${input}" not found`);
-
     const c = cmd.config;
     const aliasText = Array.isArray(c.aliases) ? c.aliases.join(", ") : c.aliases || "None";
-
     let usage = "No usage";
     if (c.guide) {
       if (typeof c.guide === "string") usage = c.guide;
