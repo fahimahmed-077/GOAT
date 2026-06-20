@@ -40,7 +40,7 @@ const TRIGGERS = [
     ]
   },
   {
-    words: ["@MA HI", "@Nishat Chowdhury", "@সিৃঁ'জুৃঁ'কাৃঁ সিৃঁ'জুৃঁ"],
+    words: ["@Mahi", "@Nishat Chowdhury", "@MA HI"],
     text: "-আমাকে মেনশন দিয়ে লাভ নাই- কারণ আমি একটা মেসেঞ্জার চ্যাট রোবট,🤖 আমাকে বানানো হয়েছে শুধুমাত্র আপনাদেরকে বিনোদনের জন্য, আমাকে বানিয়েছেন আমার বস ফাহিম😽🫶 [https://www.facebook.com/FACEBOOK.NEW.ID 2026,!🌺",
     images: [
       "https://i.imgur.com/rT7ZLzL.jpeg",
