@@ -1,115 +1,103 @@
-const { GoatWrapper } = require("fca-liane-utils");
 const axios = require("axios");
-const fs = require("fs-extra");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-module.exports = {
-  config: {
-    name: "video",
-    version: "2.2.2",
-    author: "MR_FARHAN",
-    countDown: 5,
-    role: 0,
-    shortDescription: "Search & download YouTube videos",
-    longDescription: "Search YouTube videos by name and download without prefix",
-    category: "media",
-    guide: {
-      en: "video <video name>"
-    }
-  },
-
-  onStart: async function ({ api, event, args }) {
-    const { threadID, messageID, body } = event;
-    const creatorName = "Farhan Khan";
-
-    let query = args.join(" ");
-    
-    // Handling No-prefix input
-    if (!query && body) {
-      query = body.replace(/^video\s+/i, "").trim();
-    }
-
-    // Your requested English error message and example
-    if (!query || query.toLowerCase() === "video") {
-      return api.sendMessage(
-        `❌ Please provide a song name.\n📌 Example: video Let Me Love You`,
-        threadID,
-        messageID
-      );
-    }
-
-    let tempMsgID = null;
-
-    try {
-      const searching = await api.sendMessage(
-        `🔍 Searching\n━━━━━━━━━━━━━━━\n📌 Query: ${query}\n⏳ Please wait...`,
-        threadID
-      );
-      tempMsgID = searching.messageID;
-
-      // Searching using BetaDash API
-      const searchRes = await axios.get(
-        `https://betadash-search-download.vercel.app/yt?search=${encodeURIComponent(query)}`
-      );
-
-      const video = searchRes.data?.[0];
-      if (!video || !video.url) throw new Error("No results found.");
-
-      await api.unsendMessage(tempMsgID).catch(() => {});
-
-      const downloading = await api.sendMessage(
-        `🎬 Video Found\n━━━━━━━━━━━━━━━\n📖 Title: ${video.title}\n⬇️ Downloading...`,
-        threadID
-      );
-      tempMsgID = downloading.messageID;
-
-      // Getting download link using Imran API
-      const dlRes = await axios.get(
-        `https://yt-api-imran.vercel.app/api?url=${video.url}`
-      );
-
-      const downloadUrl = dlRes.data?.downloadUrl;
-      if (!downloadUrl) throw new Error("Download link not available.");
-
-      // Fetching the video buffer
-      const buffer = (
-        await axios.get(downloadUrl, { responseType: "arraybuffer" })
-      ).data;
-
-      const cacheDir = path.join(process.cwd(), "cache");
-      await fs.ensureDir(cacheDir);
-
-      const filePath = path.join(cacheDir, `video_${Date.now()}.mp4`);
-      await fs.writeFile(filePath, buffer);
-
-      const finalMessage = {
-        body:
-          `━━━━━━━━━━━━━━━━━━\n` +
-          `🎬 VIDEO READY\n` +
-          `━━━━━━━━━━━━━━━━━━\n` +
-          `📖 Title: ${video.title}\n` +
-          `⏱ Duration: ${video.time}\n` +
-          `🖌️ Power by: ${creatorName}\n` +
-          `━━━━━━━━━━━━━━━━━━`,
-        attachment: fs.createReadStream(filePath)
-      };
-
-      await api.sendMessage(finalMessage, threadID, async () => {
-        if (fs.existsSync(filePath)) await fs.unlink(filePath);
-      }, messageID);
-
-      if (tempMsgID) await api.unsendMessage(tempMsgID).catch(() => {});
-
-    } catch (err) {
-      if (tempMsgID) await api.unsendMessage(tempMsgID).catch(() => {});
-      api.sendMessage(
-        `❌ Failed\n━━━━━━━━━━━━━━━\n${err.message || "An unexpected error occurred."}`,
-        threadID,
-        messageID
-      );
-    }
-  }
+const baseApiUrl = async () => {
+        const base = await axios.get(`https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json`);
+        return base.data.mahmud; 
 };
 
-const wrapper = new GoatWrapper(module.exports);
-wrapper.applyNoPrefix({ allowPrefix: true });
+module.exports = {
+        config: {
+                name: "video",
+                aliases: ["ভিডিও"],
+                version: "1.7",
+                author: "MahMUD",
+                countDown: 10,
+                role: 0,
+                description: {
+                        bn: "ইউটিউব থেকে ভিডিও ডাউনলোড করুন (নাম বা লিঙ্ক দিয়ে)",
+                        en: "Download video from YouTube (by name or link)",
+                        vi: "Tải video từ YouTube (theo tên hoặc liên kết)"
+                },
+                category: "media",
+                guide: {
+                        bn: '   {pn} <নাম বা লিঙ্ক>: ভিডিও ডাউনলোড করতে নাম বা লিঙ্ক দিন',
+                        en: '   {pn} <name or link>: Provide video name or link',
+                        vi: '   {pn} <tên hoặc liên kết>: Cung cấp tên hoặc liên kết video'
+                }
+        },
+
+        langs: {
+                bn: {
+                        noInput: "× বেবি, ভিডিওর নাম বা লিঙ্ক তো দাও! 📺",
+                        noResult: "× কোনো রেজাল্ট পাওয়া যায়নি।",
+                        success: "✅ 𝙃𝙚𝙧𝙚'𝙨 𝙮𝙤𝙪𝙧 𝙫𝙞𝙙𝙚𝙤 𝙗𝙖𝙗𝙮\n\n• 𝐓𝐢𝐭𝐥𝐞: %1",
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact MahMUD।"
+                },
+                en: {
+                        noInput: "× Baby, please provide a video name or link! 📺",
+                        noResult: "× No results found.",
+                        success: "✅ 𝙃𝙚𝙧𝙚'𝙨 𝙮𝙤𝙪𝙧 𝙫𝙞𝙙𝙚𝙤 𝙗𝙖𝙗𝙮\n\n• 𝐓𝐢𝐭𝐥𝐞: %1",
+                        error: "× API error: %1. Contact MahMUD for help."
+                },
+                vi: {
+                        noInput: "× Cưng ơi, vui lòng cung cấp tên hoặc liên kết video! 📺",
+                        noResult: "× Không tìm thấy kết quả.",
+                        success: "✅ Video của cưng đây <😘\n\n• 𝐓𝐢êu đề: %1",
+                        error: "× Lỗi: %1. Liên hệ MahMUD để hỗ trợ."
+                }
+        },
+
+        onStart: async function ({ api, event, args, message, getLang }) {
+                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
+                if (this.config.author !== authorName) {
+                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
+                }
+
+                if (!args[0]) return message.reply(getLang("noInput"));
+
+                try {
+                        api.setMessageReaction("🐤", event.messageID, () => {}, true);
+                        
+                        const apiUrl = await baseApiUrl();
+                        const checkurl = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})(?:\S+)?$/;
+                        let videoID;
+
+                        if (checkurl.test(args[0])) {
+                                videoID = args[0].match(checkurl)[1];
+                        } else {
+                                const keyWord = args.join(" ");
+                                const searchRes = await axios.get(`${apiUrl}/api/video/search?songName=${encodeURIComponent(keyWord)}`);
+                                if (!searchRes.data || searchRes.data.length === 0) {
+                                        api.setMessageReaction("🥹", event.messageID, () => {}, true);
+                                        return message.reply(getLang("noResult"));
+                                }
+                                videoID = searchRes.data[0].id;
+                        }
+
+                        const cacheDir = path.join(__dirname, "cache");
+                        if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
+                        const filePath = path.join(cacheDir, `video_${videoID}.mp4`);
+
+                        const res = await axios.get(`${apiUrl}/api/video/download?link=${videoID}&format=mp4`);
+                        const { title, downloadLink } = res.data;
+
+                        const videoBuffer = (await axios.get(downloadLink, { responseType: "arraybuffer" })).data;
+                        fs.writeFileSync(filePath, Buffer.from(videoBuffer));
+
+                        return message.reply({
+                                body: getLang("success", title),
+                                attachment: fs.createReadStream(filePath)
+                        }, () => {
+                                api.setMessageReaction("🪽", event.messageID, () => {}, true);
+                                if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+                        });
+
+                } catch (err) {
+                        console.error("Video Download Error:", err);
+                        api.setMessageReaction("❌", event.messageID, () => {}, true);
+                        return message.reply(getLang("error", err.message));
+                }
+        }
+};
